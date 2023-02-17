@@ -17,10 +17,12 @@ from torch.autograd import Variable
 import numpy as np
 import torchvision
 from torchvision import datasets, models, transforms
+from IPython.display import Image
 import matplotlib.pyplot as plt
 import time
 import copy
 import os
+import pdb
 from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 from fine_tuning_config_file import *
@@ -37,7 +39,7 @@ if USE_TENSORBOARD:
         pass
     foo = cc.create_experiment(EXP_NAME)
 
-
+image_Demo = 1
 ## If you want to use the GPU, set GPU_MODE TO 1 in config file
 
 use_gpu = GPU_MODE
@@ -154,7 +156,7 @@ dset_classes = dsets['train'].classes
 # 1) NEVER overwrite a pytorch variable, as all previous history will be lost and autograd won't work.
 # 2) Variables can only undergo operations that are differentiable.
 
-def train_model(model, criterion, optimizer, lr_scheduler, num_epochs=100):
+def train_model(model, criterion, optimizer, lr_scheduler, num_epochs=1):
     since = time.time()
 
     best_model = model
@@ -180,8 +182,12 @@ def train_model(model, criterion, optimizer, lr_scheduler, num_epochs=100):
             counter=0
             # Iterate over data.
             for data in dset_loaders[phase]:
+                #if image_Demo and counter == 0:
+                #pdb.set_trace()
+                
                 inputs, labels = data
                 print(inputs.size())
+                #print(labels)
                 # wrap them in Variable
                 if use_gpu:
                     try:
@@ -289,10 +295,10 @@ optimizer_ft = optim.RMSprop(model_ft.parameters(), lr=0.0001)
 
 # Run the functions and save the best model in the function model_ft.
 model_ft = train_model(model_ft, criterion, optimizer_ft, exp_lr_scheduler,
-                       num_epochs=5)
+                       num_epochs=1)
 
 # Save model
-model_ft.save_state_dict('fine_tuned_best_model.pt')
+model_ft.save_state_dict('fine_tuned_best_model.pt')#Broken
 
 from google.colab import drive
 

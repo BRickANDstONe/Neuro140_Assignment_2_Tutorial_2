@@ -14,7 +14,7 @@ DECAY_WEIGHT = 0.1 # factor by which the learning rate is reduced.
 
 
 # DATASET INFO
-NUM_CLASSES = 2 # set the number of classes in your dataset
+NUM_CLASSES = 4 # set the number of classes in your dataset
 DATA_DIR = '/content/drive/MyDrive/Neuro140/Assignment_2/' # to run with the sample dataset, just set to 'hymenoptera_data'
 
 # DATALOADER PROPERTIES
